@@ -2,544 +2,768 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Sri Venkateswara Temple | Mobile App</title>
-  <!-- Tailwind CSS v3 -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Vue 3 CDN -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <!-- Vue Router 4 CDN -->
-  <script src="https://unpkg.com/vue-router@4"></script>
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            temple: {
-              saffron: '#f97316',
-              gold: '#eab308',
-              deep: '#b45309',
-              clay: '#78350f',
-              light: '#fff7ed',
-              maroon: '#7f1d1d',
-            }
-          },
-          fontFamily: {
-            'sans': ['Inter', 'system-ui', 'sans-serif'],
-            'display': ['Poppins', 'system-ui'],
-          }
-        }
-      }
-    }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>DivineSeva | Puja & Astrology Services</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
-      background: #1a1a1a;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+      background: #fef9f0;
+      color: #2e241f;
+      line-height: 1.4;
+    }
+
+    .app {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fffdf9;
       min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
     }
-    .live-pulse {
-      animation: pulse 1.5s infinite;
+
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1rem 5rem 1rem;
+      scroll-behavior: smooth;
     }
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.05); }
-      100% { opacity: 1; transform: scale(1); }
+
+    /* bottom tab bar - sacred theme */
+    .bottom-tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 500px;
+      margin: 0 auto;
+      background: rgba(255, 251, 245, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid #f0e4d0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0.5rem 0.75rem 0.75rem;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.03);
+      z-index: 20;
     }
-    .card-hover {
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: transparent;
+      border: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #b87c4f;
       transition: all 0.2s ease;
+      cursor: pointer;
+      padding: 6px 12px 4px;
+      border-radius: 30px;
+      flex: 1;
+      max-width: 100px;
     }
-    .card-hover:active {
-      transform: scale(0.96);
+
+    .tab-item.active {
+      color: #c26e2c;
+      background: #fef3e8;
     }
-    .fade-enter-active, .fade-leave-active {
-      transition: opacity 0.2s ease;
+
+    .tab-icon {
+      font-size: 1.6rem;
+      font-weight: 400;
     }
-    .fade-enter-from, .fade-leave-to {
+
+    .tab-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* pages */
+    .page {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .page.active-page {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* spiritual styling */
+    .hero {
+      text-align: center;
+      margin: 0 0 1.5rem 0;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #b45f2b, #e09242);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.2px;
+    }
+    .hero p {
+      color: #8a6a4f;
+      margin-top: 0.3rem;
+      font-size: 0.9rem;
+    }
+    .badge {
+      background: #fef0e4;
+      padding: 0.25rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+      color: #b95f2c;
+    }
+    .feature-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .feature-card {
+      background: #fffaf4;
+      border-radius: 28px;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      border: 1px solid #f7eadc;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .feature-icon {
+      font-size: 2rem;
+      background: #fef1e6;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 60px;
+    }
+    .feature-text h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #4a2e1e;
+    }
+    .feature-text p {
+      font-size: 0.8rem;
+      color: #a07d5e;
+    }
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 1.5rem 0 0.8rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      color: #3a2418;
+    }
+
+    /* product/service grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+      border: 1px solid #f3e7db;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .product-card:active {
+      transform: scale(0.97);
+    }
+    .product-img {
+      background: #fff4ea;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .product-info {
+      padding: 0.7rem 0.8rem 1rem;
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #3e2a1c;
+    }
+    .product-price {
+      color: #c66a2e;
+      font-weight: 800;
+      margin-top: 6px;
+      font-size: 1rem;
+    }
+    .rating {
+      font-size: 0.7rem;
+      color: #e6b17e;
+      letter-spacing: 1px;
+    }
+    .shop-header {
+      margin-bottom: 1rem;
+    }
+    .shop-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #4b2b18;
+    }
+
+    /* detail page (puja / astrology style) */
+    .pdp-container {
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+    }
+    .pdp-image {
+      background: #fff1e5;
+      width: 100%;
+      height: 230px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      border-radius: 32px;
+      margin-bottom: 1rem;
+    }
+    .pdp-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 0.25rem 0 0.25rem;
+      color: #3c281b;
+    }
+    .pdp-price {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #c56a2c;
+      margin: 0.5rem 0;
+    }
+    .pdp-description {
+      color: #6f4e33;
+      line-height: 1.5;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+    .pdp-details {
+      background: #fefaf5;
+      padding: 1rem;
+      border-radius: 24px;
+      margin: 1rem 0;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f0e2d4;
+      font-size: 0.9rem;
+    }
+    .book-btn {
+      background: #c55f2a;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 1rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 1.5rem 0 0.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .book-btn:active {
+      background: #9e4a1f;
+      transform: scale(0.98);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f7ede3;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+      cursor: pointer;
+      color: #a65323;
+    }
+    .toast-msg {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2d241ee6;
+      backdrop-filter: blur(6px);
+      color: #ffecda;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      z-index: 30;
+      max-width: 80%;
+      text-align: center;
+      pointer-events: none;
+      transition: opacity 0.2s;
       opacity: 0;
     }
-    ::-webkit-scrollbar {
-      width: 4px;
+    footer {
+      font-size: 0.7rem;
+      text-align: center;
+      color: #ccaa89;
+      padding: 1rem 0 0.5rem;
     }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #be9a78;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #f97316;
-      border-radius: 10px;
-    }
-    input[type="radio"], input[type="checkbox"] {
-      accent-color: #f97316;
-    }
-    /* Mobile safe area */
-    .pb-safe {
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-    /* Bottom menu active style */
-    .menu-active {
-      color: #f97316;
-      transform: translateY(-2px);
-    }
-    .menu-item {
-      transition: all 0.2s ease;
+    .om-symbol {
+      font-family: serif;
     }
   </style>
 </head>
 <body>
-  <div id="app" class="max-w-md w-full mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden relative min-h-[700px] flex flex-col">
-    <!-- Status bar mock -->
-    <div class="bg-temple-saffron/10 px-5 pt-4 pb-2 flex justify-between text-xs text-gray-600 font-medium">
-      <span>9:41</span>
-      <span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span>
-    </div>
-    
-    <!-- Main router view with scrollable content -->
-    <div class="flex-1 relative overflow-y-auto pb-20">
-      <router-view v-slot="{ Component }">
-        <transition name="fade" mode="out-in">
-          <component :is="Component" />
-        </transition>
-      </router-view>
-    </div>
-    
-    <!-- BOTTOM MENU BAR - Mobile style persistent navigation -->
-    <div class="fixed bottom-0 max-w-md w-full bg-white/98 backdrop-blur-md border-t border-gray-200 shadow-lg z-50 pb-safe" v-if="showBottomMenu">
-      <div class="flex justify-around items-center py-2 px-2">
-        <!-- Menu Item 1: Home -->
-        <router-link to="/" custom v-slot="{ isActive, navigate }">
-          <div @click="navigate" class="menu-item flex flex-col items-center py-1 px-3 rounded-xl cursor-pointer" :class="isActive ? 'menu-active' : 'text-gray-500'">
-            <i class="fas fa-home text-2xl"></i>
-            <span class="text-[11px] font-medium mt-0.5">Home</span>
-          </div>
-        </router-link>
-        
-        <!-- Menu Item 2: Puja Services -->
-        <router-link to="/puja-services" custom v-slot="{ isActive, navigate }">
-          <div @click="navigate" class="menu-item flex flex-col items-center py-1 px-3 rounded-xl cursor-pointer" :class="isActive ? 'menu-active' : 'text-gray-500'">
-            <i class="fas fa-praying-hands text-2xl"></i>
-            <span class="text-[11px] font-medium mt-0.5">Puja</span>
-          </div>
-        </router-link>
-        
-        <!-- Menu Item 3: Festivals -->
-        <router-link to="/festivals" custom v-slot="{ isActive, navigate }">
-          <div @click="navigate" class="menu-item flex flex-col items-center py-1 px-3 rounded-xl cursor-pointer" :class="isActive ? 'menu-active' : 'text-gray-500'">
-            <i class="fas fa-calendar-alt text-2xl"></i>
-            <span class="text-[11px] font-medium mt-0.5">Festivals</span>
-          </div>
-        </router-link>
-        
-        <!-- Menu Item 4: Appointment -->
-        <router-link to="/appointment" custom v-slot="{ isActive, navigate }">
-          <div @click="navigate" class="menu-item flex flex-col items-center py-1 px-3 rounded-xl cursor-pointer" :class="isActive ? 'menu-active' : 'text-gray-500'">
-            <i class="fas fa-calendar-check text-2xl"></i>
-            <span class="text-[11px] font-medium mt-0.5">Appoint</span>
-          </div>
-        </router-link>
-        
-        <!-- Menu Item 5: Profile -->
-        <router-link to="/profile" custom v-slot="{ isActive, navigate }">
-          <div @click="navigate" class="menu-item flex flex-col items-center py-1 px-3 rounded-xl cursor-pointer" :class="isActive ? 'menu-active' : 'text-gray-500'">
-            <i class="fas fa-user-circle text-2xl"></i>
-            <span class="text-[11px] font-medium mt-0.5">Profile</span>
-          </div>
-        </router-link>
-        
-        <!-- Menu Item 6: More (Dropdown for info pages) -->
-        <div class="relative" @click.stop="toggleMoreMenu">
-          <div class="menu-item flex flex-col items-center py-1 px-3 rounded-xl cursor-pointer" :class="showMoreMenu ? 'menu-active' : 'text-gray-500'">
-            <i class="fas fa-bars text-2xl"></i>
-            <span class="text-[11px] font-medium mt-0.5">More</span>
-          </div>
-          <div v-if="showMoreMenu" class="absolute bottom-14 right-0 bg-white shadow-xl rounded-xl w-48 py-2 z-50 border border-gray-100">
-            <div v-for="page in morePages" @click="goToInfoPage(page)" class="px-4 py-2.5 hover:bg-orange-50 text-sm flex items-center gap-3 cursor-pointer transition">
-              <i :class="page.icon" class="text-temple-saffron w-5"></i> 
-              <span>{{ page.name }}</span>
-            </div>
+<div class="app">
+  <div class="main-content" id="mainContent">
+    <!-- HOME PAGE (Spiritual Landing) -->
+    <div id="homePage" class="page active-page">
+      <div class="hero">
+        <span class="badge">🕉️ श्री गणेशाय नमः</span>
+        <h1>DivineSeva</h1>
+        <p>Puja | Mandir Tours | Astrology</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔱</div>
+          <div class="feature-text">
+            <h3>Authentic Puja Services</h3>
+            <p>Vedic rituals & pandit booking</p>
           </div>
         </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛕</div>
+          <div class="feature-text">
+            <h3>Mandir Darshan Tours</h3>
+            <p>Pilgrimage packages & spiritual yatra</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <div class="feature-text">
+            <h3>Astrology & Remedies</h3>
+            <p>Kundali, horoscope, mantra guidance</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <span>🌟 Featured Seva</span>
+        <span style="font-size:0.7rem; color:#c26e2c;">view all →</span>
+      </div>
+      <div class="product-grid" id="homeProductGrid">
+        <!-- dynamic services (first 4) -->
+      </div>
+      <footer>ॐ शान्तिः — Blessings from DivineSeva</footer>
+    </div>
+
+    <!-- SERVICES PAGE (Shop / all puja, tours, astrology) -->
+    <div id="shopPage" class="page">
+      <div class="shop-header">
+        <h2>🙏 All Sacred Services</h2>
+        <p style="color:#8a6a4f; margin-top: 4px;">Puja, Mandir tours, Astrology & remedies</p>
+      </div>
+      <div class="product-grid" id="shopProductGrid"></div>
+      <footer>📿 Book with devotion — pandit confirmation within 2hrs</footer>
+    </div>
+
+    <!-- SERVICE DETAIL PAGE -->
+    <div id="productDetailPage" class="page">
+      <button class="back-link" id="backToHomeBtn">← Back to services</button>
+      <div id="pdpContent" class="pdp-container">
+        <div style="text-align:center; padding:2rem;">Loading divine details...</div>
       </div>
     </div>
   </div>
 
-  <script>
-    // ---------- COMPONENTS ----------
-    
-    // Language Selector (Onboarding)
-    const LanguageSelector = {
-      template: `
-        <div class="min-h-[600px] bg-gradient-to-br from-amber-50 to-orange-50 p-6 flex flex-col justify-center">
-          <div class="text-center mb-8">
-            <i class="fas fa-om text-5xl text-temple-saffron mb-3"></i>
-            <h1 class="text-3xl font-bold font-display text-temple-deep">Sri Venkateswara</h1>
-            <p class="text-temple-clay font-medium">Temple App</p>
-          </div>
-          <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-5 shadow-lg">
-            <h2 class="text-xl font-semibold text-center mb-4"><i class="fas fa-globe mr-2"></i>Choose Language</h2>
-            <div class="space-y-3">
-              <div v-for="lang in languages" @click="selectLanguage(lang)" class="flex items-center justify-between p-3 bg-white rounded-xl cursor-pointer shadow-sm" :class="selected === lang.code ? 'border-2 border-temple-saffron' : ''">
-                <span class="text-lg">{{ lang.flag }} {{ lang.name }}</span>
-                <i v-if="selected === lang.code" class="fas fa-check-circle text-temple-saffron text-xl"></i>
-              </div>
-            </div>
-            <button @click="confirmLanguage" class="w-full bg-temple-saffron hover:bg-orange-600 text-white font-bold py-3 rounded-xl mt-6 transition shadow-md">Continue 🙏</button>
-            <p class="text-center text-xs text-gray-500 mt-4">🌙 Daily Aarti: 6:00 AM & 7:00 PM</p>
-          </div>
+  <!-- BOTTOM TAB BAR -->
+  <div class="bottom-tab-bar">
+    <button class="tab-item" data-tab="home" id="tabHomeBtn">
+      <span class="tab-icon">🏠</span>
+      <span class="tab-label">Home</span>
+    </button>
+    <button class="tab-item" data-tab="shop" id="tabShopBtn">
+      <span class="tab-icon">🪔</span>
+      <span class="tab-label">Services</span>
+    </button>
+    <button class="tab-item" data-tab="favorites" id="tabFavBtn">
+      <span class="tab-icon">🔱</span>
+      <span class="tab-label">Devotion</span>
+    </button>
+  </div>
+</div>
+<div id="toastMsg" class="toast-msg">✨ Booking initiated • Priest will call soon</div>
+
+<script>
+  // ---------- PUJA / TOUR / ASTROLOGY SERVICES ----------
+  const services = [
+    {
+      id: 1,
+      name: "Satyanarayan Puja",
+      price: 3100,
+      description: "Complete Satyanarayan Katha with Vedic rituals, prasad, and pandit guidance at home or temple. Brings prosperity and harmony.",
+      includes: "Pandit ji, puja samagri, prasad, online sankalp",
+      duration: "2-3 hours",
+      category: "Puja",
+      rating: 4.9,
+      emoji: "🪔",
+      badge: "Most booked"
+    },
+    {
+      id: 2,
+      name: "Maha Shivratri Special",
+      price: 2100,
+      description: "Rudrabhishekam, mantra chanting, and Bilva archana. Ideal for removing obstacles and attaining peace.",
+      includes: "Rudra path, Abhishekam items, live telecast option",
+      duration: "1.5 hours",
+      category: "Puja",
+      rating: 4.8,
+      emoji: "🔱",
+      badge: "Festival Special"
+    },
+    {
+      id: 3,
+      name: "Vrindavan Mandir Yatra",
+      price: 8999,
+      description: "3-day spiritual tour to Banke Bihari, ISKCON, Prem Mandir. Includes transport, prasadam meals, and guide.",
+      includes: "AC accomodation, darshan passes, priest blessings",
+      duration: "3 Days",
+      category: "Mandir Tour",
+      rating: 4.9,
+      emoji: "🛕",
+      badge: "Pilgrimage"
+    },
+    {
+      id: 4,
+      name: "Astrology Consultation",
+      price: 1100,
+      description: "30-min personal session with senior Vedic astrologer. Get remedies, gemstone advice, and horoscope insights.",
+      includes: "Kundali analysis, 3 remedies, recorded summary",
+      duration: "30 mins",
+      category: "Astrology",
+      rating: 4.7,
+      emoji: "✨",
+      badge: "Expert astrologer"
+    },
+    {
+      id: 5,
+      name: "Ganga Aarti & Puja",
+      price: 2500,
+      description: "Witness grand Ganga Aarti in Haridwar/Rishikesh + puja on ghat. Virtual or physical participation.",
+      includes: "VIP aarti seat, prasad, flower offering",
+      duration: "1.5 hours",
+      category: "Puja",
+      rating: 4.9,
+      emoji: "🌊",
+      badge: "Sacred"
+    },
+    {
+      id: 6,
+      name: "Vastu Shanti Puja",
+      price: 4500,
+      description: "Remove vastu dosha, bring positive energy into home/office. Yantra installation and havan.",
+      includes: "Vastu yantra, navagraha havan, pandit consultation",
+      duration: "3 hours",
+      category: "Puja",
+      rating: 4.8,
+      emoji: "🏠",
+      badge: "Remedial"
+    },
+    {
+      id: 7,
+      name: "Jyotish Gemstone Recommendation",
+      price: 800,
+      description: "AI + Vedic analysis to suggest suitable gemstone for career & health. Detailed report.",
+      includes: "Personalized PDF, mantra for stone activation",
+      duration: "Report in 24h",
+      category: "Astrology",
+      rating: 4.6,
+      emoji: "💎",
+      badge: "Trending"
+    },
+    {
+      id: 8,
+      name: "South India Temple Tour",
+      price: 14500,
+      description: "5-day divine journey: Tirupati, Rameswaram, Madurai Meenakshi. Group pilgrimage with priest.",
+      includes: "Train/flight assistance, pure veg meals, guide",
+      duration: "5 Days",
+      category: "Mandir Tour",
+      rating: 4.9,
+      emoji: "🐘",
+      badge: "Best seller"
+    }
+  ];
+
+  // DOM elements
+  const homePage = document.getElementById('homePage');
+  const shopPage = document.getElementById('shopPage');
+  const productDetailPage = document.getElementById('productDetailPage');
+  const homeGrid = document.getElementById('homeProductGrid');
+  const shopGrid = document.getElementById('shopProductGrid');
+  const pdpContent = document.getElementById('pdpContent');
+  const tabHome = document.getElementById('tabHomeBtn');
+  const tabShop = document.getElementById('tabShopBtn');
+  const tabFav = document.getElementById('tabFavBtn');
+  const backBtn = document.getElementById('backToHomeBtn');
+  const toast = document.getElementById('toastMsg');
+
+  let currentView = 'home';
+  let lastNonProductView = 'home';
+
+  function showToast(msg) {
+    toast.textContent = msg || "🙏 Booking initiated • We'll contact you";
+    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 1900);
+  }
+
+  // render service card
+  function renderServiceCard(service) {
+    return `
+      <div class="product-card" data-service-id="${service.id}">
+        <div class="product-img">${service.emoji}</div>
+        <div class="product-info">
+          <div class="product-title">${service.name}</div>
+          <div class="rating">${'★'.repeat(Math.floor(service.rating))}${service.rating % 1 ? '½' : ''} ${service.rating}</div>
+          <div class="product-price">₹${service.price.toLocaleString('en-IN')}</div>
         </div>
-      `,
-      data() {
-        return {
-          selected: 'en',
-          languages: [
-            { code: 'en', name: 'English', flag: '🇬🇧' },
-            { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
-            { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
-            { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' }
-          ]
-        }
-      },
-      methods: {
-        selectLanguage(lang) { this.selected = lang.code; },
-        confirmLanguage() {
-          localStorage.setItem('temple_lang', this.selected);
-          this.$router.push('/');
-        }
-      }
-    };
+      </div>
+    `;
+  }
 
-    // Home Dashboard
-    const HomePage = {
-      template: `
-        <div class="pb-4 bg-temple-light">
-          <div class="px-5 pt-4 pb-2 flex justify-between items-center bg-white border-b border-orange-100">
-            <div><p class="text-xs text-temple-clay">Welcome back,</p><p class="font-bold text-xl text-gray-800">Rajesh 🙏</p></div>
-            <div class="bg-amber-100 rounded-full px-3 py-1 text-xs font-medium"><i class="far fa-bell mr-1"></i> Live</div>
-          </div>
-          <!-- Live Darshan Card -->
-          <div class="p-4">
-            <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-4 shadow-md border border-orange-200">
-              <div class="flex justify-between items-center"><div class="flex items-center gap-2"><span class="live-pulse w-2 h-2 bg-red-500 rounded-full inline-block"></span><span class="text-xs font-bold text-red-600">LIVE</span><span class="text-xs font-semibold">Garba Griha Darshan</span></div><i class="fas fa-video text-temple-saffron"></i></div>
-              <div class="bg-black/10 rounded-xl h-36 my-3 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://placehold.co/600x200/D4A373/8B5A2B?text=Temple+Sanctum'); background-size: cover;"><div class="bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-white text-xs"><i class="fas fa-play"></i> Abhishekam in progress</div></div>
-              <button class="w-full bg-temple-saffron hover:bg-orange-700 text-white py-2 rounded-xl font-medium transition">Watch Now <i class="fas fa-arrow-right ml-1"></i></button>
-            </div>
-          </div>
-          <!-- Quick Actions -->
-          <div class="grid grid-cols-4 gap-2 px-4 mt-1">
-            <div v-for="item in quickLinks" @click="navigateTo(item.route)" class="bg-white p-3 rounded-xl text-center shadow-sm card-hover cursor-pointer"><i :class="item.icon" class="text-2xl text-temple-saffron"></i><p class="text-xs mt-1 font-medium">{{ item.label }}</p></div>
-          </div>
-          <!-- Featured Puja Services -->
-          <div class="px-4 mt-5"><div class="flex justify-between items-center"><h3 class="font-bold text-gray-700"><i class="fas fa-praying-hands mr-1 text-temple-saffron"></i> Popular Puja Services</h3><router-link to="/puja-services" class="text-xs text-temple-saffron">View all →</router-link></div>
-            <div class="overflow-x-auto flex gap-3 mt-2 pb-2">
-              <div v-for="puja in featuredPujas" @click="goToPujaDetail(puja)" class="min-w-[160px] bg-white rounded-xl shadow-sm p-3 border border-orange-100 cursor-pointer card-hover">
-                <i :class="puja.icon" class="text-3xl text-temple-saffron"></i><p class="font-bold mt-1">{{ puja.name }}</p><p class="text-xs text-gray-500">₹{{ puja.price }}</p><p class="text-xs text-green-600 mt-1">Book Now →</p>
-              </div>
-            </div>
-          </div>
-          <!-- Upcoming Festivals Preview -->
-          <div class="px-4 mt-4"><div class="flex justify-between items-center"><h3 class="font-bold text-gray-700"><i class="fas fa-star-of-life mr-1 text-temple-saffron"></i> Upcoming Festivals</h3><router-link to="/festivals" class="text-xs text-temple-saffron">More →</router-link></div>
-            <div class="bg-gradient-to-r from-red-50 to-amber-50 mt-2 p-3 rounded-xl flex items-center gap-3"><i class="fas fa-shiva text-3xl text-temple-maroon"></i><div><p class="font-semibold">🪔 Maha Shivaratri – Mar 8, 2025</p><p class="text-xs text-gray-600">All-night Jagran + Rudrabhishekam</p></div></div>
-            <div class="bg-gradient-to-r from-yellow-50 to-orange-50 mt-2 p-3 rounded-xl flex items-center gap-3"><i class="fas fa-ram text-3xl text-temple-deep"></i><div><p class="font-semibold">🌸 Sri Rama Navami – Apr 6, 2025</p><p class="text-xs text-gray-600">Special puja & harikatha</p></div></div>
-          </div>
-          <div class="px-4 mt-4 mb-6"><div class="bg-orange-100 border-l-4 border-temple-saffron p-3 rounded-lg"><i class="fas fa-bullhorn text-temple-deep mr-2"></i><span class="text-sm font-medium">Book personal appointment with priests for Griha Pravesh, Nakshatra Puja →</span></div></div>
-        </div>
-      `,
-      data() {
-        return {
-          quickLinks: [
-            { label: 'Puja', icon: 'fas fa-pray', route: '/puja-services' },
-            { label: 'Festivals', icon: 'fas fa-calendar-alt', route: '/festivals' },
-            { label: 'Appointment', icon: 'fas fa-calendar-check', route: '/appointment' },
-            { label: 'Donate', icon: 'fas fa-hand-holding-heart', route: '/donate' }
-          ],
-          featuredPujas: [
-            { id: 1, name: 'Rudrabhishekam', price: 751, icon: 'fas fa-shield-alt' },
-            { id: 2, name: 'Satyanarayan Puja', price: 1100, icon: 'fas fa-pray' },
-            { id: 3, name: 'Navagraha Shanti', price: 1500, icon: 'fas fa-sun' }
-          ]
-        }
-      },
-      methods: {
-        navigateTo(route) { this.$router.push(route); },
-        goToPujaDetail(puja) { 
-          this.$root.selectedPujaForDetail = puja; 
-          this.$router.push({ name: 'pujaDetail', params: { id: puja.id } });
-        }
-      }
-    };
-
-    // Puja Services Listing
-    const PujaServicesPage = {
-      template: `
-        <div class="bg-temple-light min-h-full">
-          <div class="sticky top-0 bg-white z-10 px-5 py-4 border-b flex items-center gap-3 shadow-sm"><router-link to="/" class="text-xl"><i class="fas fa-arrow-left"></i></router-link><h2 class="font-bold text-xl">🙏 Puja Services</h2></div>
-          <div class="p-4 space-y-4">
-            <div v-for="puja in allPujas" class="bg-white rounded-2xl shadow-md p-4 flex justify-between items-center">
-              <div class="flex-1"><div class="flex items-center gap-2"><i :class="puja.icon" class="text-2xl text-temple-saffron"></i><span class="font-bold text-lg">{{ puja.name }}</span></div><p class="text-sm text-gray-500 mt-1">{{ puja.desc }}</p><p class="text-temple-saffron font-bold mt-1">₹{{ puja.price }}</p></div>
-              <button @click="viewDetail(puja)" class="bg-temple-saffron text-white px-4 py-2 rounded-xl text-sm shadow">Book Now</button>
-            </div>
-          </div>
-        </div>
-      `,
-      data() {
-        return {
-          allPujas: [
-            { id: 1, name: 'Rudrabhishekam', price: 751, desc: 'Sacred bathing of Shiva Linga with 11 Rudras', icon: 'fas fa-om' },
-            { id: 2, name: 'Satyanarayana Puja', price: 1100, desc: 'For abundance & gratitude', icon: 'fas fa-praying-hands' },
-            { id: 3, name: 'Navagraha Shanti', price: 1500, desc: 'Pacify nine planets, removes doshas', icon: 'fas fa-planet-ringed' },
-            { id: 4, name: 'Maha Mrityunjaya Havan', price: 2100, desc: 'Powerful for health & longevity', icon: 'fas fa-fire' },
-            { id: 5, name: 'Sudarshana Homam', price: 2500, desc: 'Removes obstacles, victory', icon: 'fas fa-shield-virus' }
-          ]
-        }
-      },
-      methods: {
-        viewDetail(puja) { this.$root.selectedPujaForDetail = puja; this.$router.push({ name: 'pujaDetail', params: { id: puja.id } }); }
-      }
-    };
-
-    // Puja Detail + Checkout with Payment
-    const PujaDetailPage = {
-      template: `
-        <div class="bg-temple-light min-h-full pb-8">
-          <div class="sticky top-0 bg-white px-5 py-4 border-b flex items-center gap-3"><router-link to="/puja-services" class="text-xl"><i class="fas fa-arrow-left"></i></router-link><h2 class="font-bold text-xl">Puja Details</h2></div>
-          <div class="p-5 space-y-5">
-            <div class="bg-white rounded-2xl p-5 shadow-md">
-              <i :class="puja.icon" class="text-5xl text-temple-saffron mb-3"></i>
-              <h3 class="text-2xl font-bold">{{ puja.name }}</h3>
-              <p class="text-gray-600 mt-2">{{ puja.desc }}</p>
-              <div class="mt-3 flex items-baseline"><span class="text-3xl font-bold text-temple-saffron">₹{{ puja.price }}</span><span class="ml-2 text-sm text-gray-500">+ Prasad & Dakshina</span></div>
-              <div class="border-t mt-4 pt-4"><p class="font-semibold">What's included:</p><ul class="list-disc list-inside text-sm space-y-1 mt-1"><li>Live priest conducting puja via video/photo</li><li>Prasad delivered (courier/ pickup)</li><li>Puja sankalp with your name & gotra</li><li>Donation receipt (80G)</li></ul></div>
-            </div>
-            <div class="bg-amber-50 rounded-xl p-4 space-y-3">
-              <h4 class="font-bold">Book for Yourself or Family</h4>
-              <div><label class="text-sm font-medium">Devotee Name *</label><input v-model="devoteeName" class="w-full border rounded-lg p-2 mt-1 bg-white"></div>
-              <div><label class="text-sm font-medium">Gotra (Optional)</label><input v-model="gotra" class="w-full border rounded-lg p-2 bg-white"></div>
-              <div><label class="text-sm font-medium">Sankalp / Purpose</label><input v-model="purposeText" class="w-full border rounded-lg p-2 bg-white" placeholder="Health, prosperity, peace"></div>
-              <div><label class="text-sm font-medium">Preferred Date</label><input type="date" v-model="pujaDate" class="w-full border rounded-lg p-2 bg-white"></div>
-            </div>
-            <button @click="proceedToCheckout" class="w-full bg-temple-saffron hover:bg-orange-700 text-white py-3 rounded-xl font-bold text-lg shadow-lg transition">Proceed to Checkout • ₹{{ puja.price }}</button>
-          </div>
-          <!-- Checkout Modal -->
-          <div v-if="showCheckout" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-            <div class="bg-white rounded-2xl max-w-sm w-full p-5">
-              <div class="flex justify-between items-center border-b pb-2"><h3 class="font-bold text-lg">Secure Checkout</h3><button @click="showCheckout=false" class="text-2xl">&times;</button></div>
-              <div class="mt-3 space-y-2"><p><strong>{{ puja.name }}</strong></p><p>Devotee: {{ devoteeName }}</p><p>Date: {{ pujaDate }}</p><div class="border-t pt-2 text-right font-bold text-xl">Total: ₹{{ puja.price }}</div></div>
-              <div class="mt-3"><label class="font-medium">Payment Method</label><select v-model="paymentMethod" class="w-full border rounded-lg p-2 mt-1"><option>UPI (Google Pay/PhonePe)</option><option>Credit/Debit Card</option><option>Net Banking</option></select></div>
-              <button @click="completePayment" class="w-full bg-green-600 text-white py-3 rounded-xl font-bold mt-4">Pay ₹{{ puja.price }}</button>
-              <p class="text-xs text-center text-gray-400 mt-2">🔒 Secure payment • SSL encrypted</p>
-            </div>
-          </div>
-        </div>
-      `,
-      data() {
-        return {
-          puja: null,
-          devoteeName: 'Rajesh Kumar',
-          gotra: '',
-          purposeText: 'Family well-being',
-          pujaDate: new Date().toISOString().split('T')[0],
-          showCheckout: false,
-          paymentMethod: 'UPI (Google Pay/PhonePe)'
-        }
-      },
-      created() {
-        const id = parseInt(this.$route.params.id);
-        const all = [
-          { id: 1, name: 'Rudrabhishekam', price: 751, desc: 'Sacred bathing of Shiva Linga with 11 Rudras', icon: 'fas fa-om' },
-          { id: 2, name: 'Satyanarayana Puja', price: 1100, desc: 'For abundance & gratitude', icon: 'fas fa-praying-hands' },
-          { id: 3, name: 'Navagraha Shanti', price: 1500, desc: 'Pacify nine planets', icon: 'fas fa-planet-ringed' },
-          { id: 4, name: 'Maha Mrityunjaya Havan', price: 2100, desc: 'Powerful for health', icon: 'fas fa-fire' },
-          { id: 5, name: 'Sudarshana Homam', price: 2500, desc: 'Removes obstacles', icon: 'fas fa-shield-virus' }
-        ];
-        this.puja = all.find(p => p.id === id) || all[0];
-      },
-      methods: {
-        proceedToCheckout() { if(!this.devoteeName) { alert("Please enter devotee name"); return; } this.showCheckout = true; },
-        completePayment() {
-          this.showCheckout = false;
-          this.$root.showModal(`✅ Puja '${this.puja.name}' booked successfully for ${this.devoteeName}. Payment of ₹${this.puja.price} received. Receipt & puja details sent. Jai Sri Ram! 🙏`);
-          this.$router.push('/');
-        }
-      }
-    };
-
-    // Festivals Page
-    const FestivalsPage = {
-      template: `
-        <div class="bg-temple-light min-h-full">
-          <div class="sticky top-0 bg-white px-5 py-4 border-b"><h2 class="font-bold text-xl">📅 Sacred Festivals 2025</h2></div>
-          <div class="p-4 space-y-4">
-            <div v-for="fest in festivals" class="bg-white rounded-2xl shadow-md p-4"><div class="flex items-center gap-2"><i :class="fest.icon" class="text-2xl text-temple-saffron"></i><h3 class="font-bold text-lg">{{ fest.name }}</h3></div><p class="text-sm text-gray-600 mt-1">{{ fest.desc }}</p><p class="text-xs text-temple-clay mt-2"><i class="far fa-calendar-alt"></i> {{ fest.date }}</p><button class="mt-2 text-xs bg-amber-100 px-3 py-1 rounded-full">Set Reminder</button></div>
-          </div>
-        </div>
-      `,
-      data() {
-        return {
-          festivals: [
-            { name: '🪔 Maha Shivaratri', date: 'March 8, 2025', desc: 'All-night Jagran, Rudrabhishekam', icon: 'fas fa-shiva' },
-            { name: '🌸 Sri Rama Navami', date: 'April 6, 2025', desc: 'Celebration of Lord Rama’s birth', icon: 'fas fa-ram' },
-            { name: '🌿 Hanuman Jayanthi', date: 'April 12, 2025', desc: 'Special Abhishekam', icon: 'fas fa-monkey' },
-            { name: '🕉️ Guru Purnima', date: 'July 10, 2025', desc: 'Guru Puja & discourse', icon: 'fas fa-chalkboard-user' }
-          ]
-        }
-      }
-    };
-
-    // Appointment Page
-    const AppointmentPage = {
-      template: `
-        <div class="bg-temple-light min-h-full">
-          <div class="sticky top-0 bg-white px-5 py-4 border-b"><h2 class="font-bold text-xl">📅 Personal Appointment</h2></div>
-          <div class="p-5 space-y-5">
-            <div class="bg-amber-50 rounded-xl p-4 text-center"><i class="fas fa-chalkboard-user text-3xl text-temple-saffron"></i><p class="font-semibold mt-1">Consult with Vedic Priests</p></div>
-            <div><label class="font-medium">Type</label><select v-model="appointmentType" class="w-full border rounded-xl p-3"><option>Griha Pravesh Puja</option><option>Nakshatra / Janam Kundli</option><option>Personal Archana</option></select></div>
-            <div><label class="font-medium">Date & Time</label><input type="datetime-local" v-model="appointmentDateTime" class="w-full border rounded-xl p-3"></div>
-            <div><label class="font-medium">Your Name</label><input v-model="contactName" class="w-full border rounded-xl p-3"></div>
-            <button @click="confirmAppointment" class="w-full bg-temple-saffron text-white py-3 rounded-xl font-bold">Book & Pay ₹501</button>
-          </div>
-        </div>
-      `,
-      data() {
-        return {
-          appointmentType: 'Griha Pravesh Puja',
-          appointmentDateTime: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
-          contactName: 'Rajesh Kumar'
-        }
-      },
-      methods: { confirmAppointment() { this.$root.showModal(`✅ Appointment booked for ${this.appointmentType} on ${this.appointmentDateTime}. Payment ₹501 successful. Priest will contact you.`); } }
-    };
-
-    // Donate Page
-    const DonatePage = {
-      template: `<div class="bg-temple-light p-5"><h2 class="font-bold text-xl">Donate with Love</h2><div class="mt-4 space-y-3"><button @click="donate(501)" class="w-full bg-temple-saffron text-white py-3 rounded-xl font-bold">Donate ₹501</button><button @click="donate(1001)" class="w-full bg-temple-saffron/80 text-white py-3 rounded-xl font-bold">Donate ₹1001</button></div></div>`,
-      methods: { donate(amt) { this.$root.showModal(`🙏 Thank you for your donation of ₹${amt}. 80G receipt will be emailed.`); } }
-    };
-
-    // Profile Page
-    const ProfilePage = {
-      template: `
-        <div class="bg-temple-light min-h-full">
-          <div class="sticky top-0 bg-white px-5 py-4 border-b"><h2 class="font-bold text-xl">My Profile</h2></div>
-          <div class="p-5 text-center"><div class="w-24 h-24 bg-amber-200 rounded-full mx-auto flex items-center justify-center text-4xl">🧘</div><h3 class="font-bold text-2xl mt-3">Rajesh Kumar</h3><p>+91 98765 43210</p><p>rajesh@temple.com</p></div>
-          <div class="space-y-3 p-5"><div class="flex justify-between p-3 bg-white rounded-xl"><span>📿 Puja Bookings</span><span>2 active →</span></div><div class="flex justify-between p-3 bg-white rounded-xl"><span>📅 Appointments</span><span>1 upcoming →</span></div><button @click="logout" class="w-full mt-6 text-red-600 border border-red-300 py-3 rounded-xl font-semibold">Logout</button></div>
-        </div>
-      `,
-      methods: { logout() { this.$root.showModal("Logged out successfully"); setTimeout(() => this.$router.push('/language'), 1200); } }
-    };
-
-    // Static Pages: About, Terms, Refund, Privacy
-    const StaticPage = {
-      template: `
-        <div class="bg-temple-light min-h-full">
-          <div class="sticky top-0 bg-white px-5 py-4 border-b flex items-center gap-3"><button @click="$router.back()" class="text-xl"><i class="fas fa-arrow-left"></i></button><h2 class="font-bold text-xl">{{ pageTitle }}</h2></div>
-          <div class="p-5 prose prose-sm max-w-none">
-            <div v-html="content"></div>
-          </div>
-        </div>
-      `,
-      data() { return { pageTitle: '', content: '' } },
-      created() {
-        const type = this.$route.params.type;
-        const pages = {
-          about: { title: 'About Sri Temple', content: '<p>Sri Venkateswara Temple is a spiritual haven dedicated to Lord Venkateswara. Established in 1975, we have been serving devotees with daily rituals, cultural programs, and charitable activities.</p><p class="mt-3">🙏 Om Namo Venkatesaya 🙏</p><p class="mt-2">📍 123 Temple Street, Tirumala - 517504</p>' },
-          terms: { title: 'Terms & Conditions', content: '<p>By using our app, you agree to these terms. All bookings are subject to temple availability. Donations are non-refundable but eligible for 80G benefits.</p><p class="mt-2">For disputes, temple jurisdiction applies.</p>' },
-          refund: { title: 'Refund & Cancellation Policy', content: '<p>Cancellations 48 hours before puja: 80% refund. Within 24 hours: no refund, can reschedule once. Donations are final.</p>' },
-          privacy: { title: 'Privacy Policy', content: '<p>We respect your privacy. Personal data used only for bookings and receipts. Secure payment gateways protect your transactions.</p>' }
-        };
-        const selected = pages[type] || pages.about;
-        this.pageTitle = selected.title;
-        this.content = selected.content;
-      }
-    };
-
-    // Routes Configuration
-    const routes = [
-      { path: '/language', component: LanguageSelector },
-      { path: '/', component: HomePage },
-      { path: '/puja-services', component: PujaServicesPage },
-      { path: '/puja-detail/:id', name: 'pujaDetail', component: PujaDetailPage },
-      { path: '/festivals', component: FestivalsPage },
-      { path: '/appointment', component: AppointmentPage },
-      { path: '/donate', component: DonatePage },
-      { path: '/profile', component: ProfilePage },
-      { path: '/info/:type', component: StaticPage }
-    ];
-    
-    const router = VueRouter.createRouter({ 
-      history: VueRouter.createWebHashHistory(), 
-      routes 
+  function attachCardEvents(container) {
+    const cards = container.querySelectorAll('.product-card');
+    cards.forEach(card => {
+      card.removeEventListener('click', card._listener);
+      const handler = (e) => {
+        const id = parseInt(card.dataset.serviceId);
+        if (!isNaN(id)) openServiceDetail(id);
+        e.stopPropagation();
+      };
+      card.addEventListener('click', handler);
+      card._listener = handler;
     });
+  }
 
-    // Main App
-    const App = {
-      data() { 
-        return { 
-          showModalFlag: false, 
-          modalMessage: '', 
-          selectedPujaForDetail: null, 
-          showMoreMenu: false,
-          morePages: [
-            { name: 'About Us', icon: 'fas fa-info-circle', route: 'about' },
-            { name: 'Terms & Conditions', icon: 'fas fa-file-contract', route: 'terms' },
-            { name: 'Refund Policy', icon: 'fas fa-hand-holding-usd', route: 'refund' },
-            { name: 'Privacy Policy', icon: 'fas fa-shield-alt', route: 'privacy' }
-          ]
-        } 
-      },
-      computed: { 
-        showBottomMenu() { 
-          return !['/language'].includes(this.$route.path); 
-        } 
-      },
-      methods: {
-        showModal(msg) { 
-          this.modalMessage = msg; 
-          this.showModalFlag = true; 
-          setTimeout(() => { this.showModalFlag = false; }, 2600); 
-        },
-        toggleMoreMenu() { this.showMoreMenu = !this.showMoreMenu; },
-        goToInfoPage(page) { 
-          this.showMoreMenu = false; 
-          this.$router.push(`/info/${page.route}`); 
-        }
-      },
-      mounted() { 
-        document.addEventListener('click', (e) => { 
-          if(!e.target.closest('.relative')) this.showMoreMenu = false; 
-        }); 
-      },
-      template: `
-        <div>
-          <router-view />
-          <div v-if="showModalFlag" class="fixed inset-0 bg-black/50 flex items-center justify-center z-[100]">
-            <div class="bg-white rounded-2xl p-6 w-80 text-center shadow-2xl">
-              <i class="fas fa-check-circle text-green-500 text-5xl mb-2"></i>
-              <p class="font-semibold text-gray-800">{{ modalMessage }}</p>
-            </div>
-          </div>
+  function renderHome() {
+    const featured = services.slice(0, 4);
+    homeGrid.innerHTML = featured.map(s => renderServiceCard(s)).join('');
+    attachCardEvents(homeGrid);
+  }
+
+  function renderShop() {
+    shopGrid.innerHTML = services.map(s => renderServiceCard(s)).join('');
+    attachCardEvents(shopGrid);
+  }
+
+  // open detailed puja / tour / astrology view
+  function openServiceDetail(serviceId) {
+    const service = services.find(s => s.id === serviceId);
+    if (!service) return;
+
+    // track last view
+    if (currentView === 'home') lastNonProductView = 'home';
+    else if (currentView === 'shop') lastNonProductView = 'shop';
+    else if (currentView === 'favorites') lastNonProductView = 'favorites';
+    else lastNonProductView = 'home';
+
+    pdpContent.innerHTML = `
+      <div class="pdp-image">${service.emoji}</div>
+      <div style="padding: 0 0.2rem;">
+        ${service.badge ? `<span class="badge" style="background:#fdf0e3; margin-bottom:0.6rem;">🏷️ ${service.badge}</span>` : ''}
+        <h2 class="pdp-title">${service.name}</h2>
+        <div class="rating" style="font-size:0.9rem;">${'★'.repeat(Math.floor(service.rating))}${service.rating % 1 ? '½' : ''} (${service.rating})</div>
+        <div class="pdp-price">₹${service.price.toLocaleString('en-IN')}</div>
+        <p class="pdp-description">${service.description}</p>
+        <div class="pdp-details">
+          <div class="detail-row"><span>📿 What's included</span><span style="font-weight:500;">${service.includes}</span></div>
+          <div class="detail-row"><span>⏱️ Duration / Type</span><span>${service.duration}</span></div>
+          <div class="detail-row"><span>🙏 Category</span><span>${service.category}</span></div>
+          <div class="detail-row"><span>🌟 Purity assured</span><span>Vedic certified</span></div>
         </div>
-      `
-    };
+        <button class="book-btn" id="pdpBookBtn">🪔 Book Seva — ₹${service.price.toLocaleString('en-IN')}</button>
+        <p style="font-size:0.7rem; text-align:center; margin-top:12px; color:#c99468;">Flexible dates • Free cancellation</p>
+      </div>
+    `;
 
-    const app = Vue.createApp(App);
-    app.use(router);
-    app.mount('#app');
+    // switch pages
+    homePage.classList.remove('active-page');
+    shopPage.classList.remove('active-page');
+    productDetailPage.classList.add('active-page');
+    currentView = 'product';
+
+    const bookBtn = document.getElementById('pdpBookBtn');
+    if (bookBtn) {
+      bookBtn.addEventListener('click', () => {
+        showToast(`🙏 Booking request sent for ${service.name}. Pandit will call within 1 hour.`);
+      });
+    }
+    document.querySelector('.main-content').scrollTop = 0;
+  }
+
+  function goToHome() {
+    homePage.classList.add('active-page');
+    shopPage.classList.remove('active-page');
+    productDetailPage.classList.remove('active-page');
+    if (document.getElementById('favoritesContainer')) {
+      const favDiv = document.getElementById('favoritesContainer');
+      if (favDiv) favDiv.classList.remove('active-page');
+    }
+    currentView = 'home';
+    updateTabActive('home');
+    renderHome();
+    document.querySelector('.main-content').scrollTop = 0;
+  }
+
+  function goToShop() {
+    homePage.classList.remove('active-page');
+    shopPage.classList.add('active-page');
+    productDetailPage.classList.remove('active-page');
+    if (document.getElementById('favoritesContainer')) {
+      document.getElementById('favoritesContainer')?.classList.remove('active-page');
+    }
+    currentView = 'shop';
+    updateTabActive('shop');
+    renderShop();
+    document.querySelector('.main-content').scrollTop = 0;
+  }
+
+  function updateTabActive(tab) {
+    [tabHome, tabShop, tabFav].forEach(btn => btn.classList.remove('active'));
+    if (tab === 'home') tabHome.classList.add('active');
+    if (tab === 'shop') tabShop.classList.add('active');
+    if (tab === 'favorites') tabFav.classList.add('active');
+  }
+
+  // Devotion tab - displays sacred quotes and link to browse services (spiritual favorites alternative)
+  let favContainerCreated = false;
+  function goToFavorites() {
+    if (currentView === 'favorites') return;
+    if (lastNonProductView === 'product') lastNonProductView = 'home';
     
-    // Route guard for language selection
-    router.beforeEach((to, from, next) => { 
-      if (to.path !== '/language' && !localStorage.getItem('temple_lang')) {
-        next('/language');
+    homePage.classList.remove('active-page');
+    shopPage.classList.remove('active-page');
+    productDetailPage.classList.remove('active-page');
+    
+    let favDiv = document.getElementById('favoritesContainer');
+    if (!favDiv) {
+      favDiv = document.createElement('div');
+      favDiv.id = 'favoritesContainer';
+      favDiv.className = 'page active-page';
+      favDiv.style.padding = '1rem 0';
+      document.getElementById('mainContent').appendChild(favDiv);
+    } else {
+      favDiv.classList.add('active-page');
+    }
+    
+    favDiv.innerHTML = `
+      <div style="text-align: center; padding: 2rem 1rem;">
+        <div style="font-size: 3.2rem; margin-bottom: 1rem;">🔱🙏</div>
+        <h3 style="font-size: 1.5rem; color:#4f2d18;">Sacred Corner</h3>
+        <p style="color:#b77c4a; margin: 0.5rem 0 1rem;">"श्रद्धावाँल्लभते ज्ञानम्" — With faith, one attains wisdom.</p>
+        <div style="background: #fff5ec; border-radius: 24px; padding: 1rem; margin: 1rem 0;">
+          <p style="font-style: italic;">🙌 Upcoming: Hanuman Chalisa webinar, free kundali analysis & temple live darshan.</p>
+        </div>
+        <button id="browseServicesFromDevotion" style="background:#c66a2e; border:none; color:white; padding: 0.8rem 1.8rem; border-radius: 60px; font-weight:600; margin-top:0.5rem; cursor:pointer;">📿 Browse all Seva →</button>
+      </div>
+    `;
+    
+    const browseBtn = document.getElementById('browseServicesFromDevotion');
+    if (browseBtn) {
+      browseBtn.addEventListener('click', () => {
+        goToShop();
+        if (favDiv) favDiv.classList.remove('active-page');
+      });
+    }
+    
+    currentView = 'favorites';
+    updateTabActive('favorites');
+    document.querySelector('.main-content').scrollTop = 0;
+  }
+
+  // Back button logic from detail
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      if (currentView === 'product') {
+        if (lastNonProductView === 'shop') goToShop();
+        else if (lastNonProductView === 'favorites') goToFavorites();
+        else goToHome();
       } else {
-        next();
+        goToHome();
       }
     });
-  </script>
+  }
+
+  // tab listeners
+  tabHome.addEventListener('click', () => {
+    if (currentView === 'favorites') document.getElementById('favoritesContainer')?.classList.remove('active-page');
+    goToHome();
+  });
+  tabShop.addEventListener('click', () => {
+    if (currentView === 'favorites') document.getElementById('favoritesContainer')?.classList.remove('active-page');
+    goToShop();
+  });
+  tabFav.addEventListener('click', () => {
+    goToFavorites();
+  });
+
+  // initial render
+  renderHome();
+  renderShop();
+  goToHome();
+
+  // reattach events after potential dynamic changes
+  function refreshAll() {
+    attachCardEvents(homeGrid);
+    attachCardEvents(shopGrid);
+  }
+  setInterval(() => {
+    if (currentView === 'home') attachCardEvents(homeGrid);
+    if (currentView === 'shop') attachCardEvents(shopGrid);
+  }, 300);
+  
+  // Manual override for product card opener to keep tracking
+  window.openServiceDetail = openServiceDetail;
+  attachCardEvents(homeGrid);
+  attachCardEvents(shopGrid);
+</script>
 </body>
 </html>
